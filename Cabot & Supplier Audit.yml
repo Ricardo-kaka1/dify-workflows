@@ -1,0 +1,677 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: workflow
+  name: Cabot & Supplier Audit
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/deepseek:0.0.24@9e12eef09973667f0eaf4f082af883167e1de88740b22e71e71488d020c3778a
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        knowledge_file_size_limit: 15
+        single_chunk_attachment_limit: 10
+        skill_file_size_limit: 50
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: code
+      id: 1786504576804-source-1786504706860-target
+      selected: false
+      source: '1786504576804'
+      sourceHandle: source
+      target: '1786504706860'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: iteration
+      id: 1786504706860-source-1786505551548-target
+      selected: false
+      source: '1786504706860'
+      sourceHandle: source
+      target: '1786505551548'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1786505551548'
+        sourceType: iteration-start
+        targetType: llm
+      id: 1786505551548start-source-1786505620608-target
+      source: 1786505551548start
+      sourceHandle: source
+      target: '1786505620608'
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: iteration
+      id: 1786504706860-source-1786506551637-target
+      source: '1786504706860'
+      sourceHandle: source
+      target: '1786506551637'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1786506551637'
+        sourceType: iteration-start
+        targetType: llm
+      id: 1786506551637start-source-1786506556064-target
+      source: 1786506551637start
+      sourceHandle: source
+      target: '1786506556064'
+      targetHandle: target
+      type: custom
+      zIndex: 1001
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: code
+      id: 1786504706860-source-1786513024539-target
+      selected: false
+      source: '1786504706860'
+      sourceHandle: source
+      target: '1786513024539'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1786505551548-source-1786513024539-target
+      source: '1786505551548'
+      sourceHandle: source
+      target: '1786513024539'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1786506551637-source-1786513024539-target
+      source: '1786506551637'
+      sourceHandle: source
+      target: '1786513024539'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: end
+      id: 1786513024539-source-1786513345480-target
+      source: '1786513024539'
+      sourceHandle: source
+      target: '1786513345480'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: User Input
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          default: ''
+          hide: false
+          hint: ''
+          label: cabot_file
+          max_length: 5
+          options: []
+          placeholder: ''
+          required: true
+          type: file
+          variable: cabot_file
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          default: ''
+          hide: false
+          hint: ''
+          label: supplier_file
+          options: []
+          placeholder: ''
+          required: true
+          type: file
+          variable: supplier_file
+      height: 134
+      id: '1786504576804'
+      position:
+        x: -177.2613735198334
+        y: 245.43687634156277
+      positionAbsolute:
+        x: -177.2613735198334
+        y: 245.43687634156277
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        code: "import requests\nimport csv\nimport io\nimport re\nfrom collections\
+          \ import defaultdict\n\ndef normalize_invoice_number(inv):\n    if not inv\
+          \ or str(inv).strip().lower() in ['nan', 'none', '']:\n        return \"\
+          UNKNOWN\"\n    inv_str = str(inv).strip().upper()\n    inv_str = re.sub(r'[^A-Z0-9]',\
+          \ '', inv_str)\n    inv_str = inv_str.lstrip('0')\n    return inv_str if\
+          \ inv_str else \"UNKNOWN\"\n\n# ⚠️ 这里是关键修改：参数名必须与 Dify 左侧的输入变量名完全一致\ndef\
+          \ main(supplier_url: str, cabot_url: str):\n    \n    if not supplier_url\
+          \ or not cabot_url:\n        return {\"error\": \"未检测到文件URL输入，请检查节点变量配置\"\
+          }\n\n    try:\n        sup_response = requests.get(supplier_url)\n     \
+          \   cabot_response = requests.get(cabot_url)\n        # 强制使用 utf-8 或 utf-8-sig\
+          \ 解码 CSV 文本\n        sup_text = sup_response.content.decode('utf-8-sig')\n\
+          \        cabot_text = cabot_response.content.decode('utf-8-sig')\n     \
+          \   \n        sup_reader = csv.DictReader(io.StringIO(sup_text))\n     \
+          \   cabot_reader = csv.DictReader(io.StringIO(cabot_text))\n        \n \
+          \       supplier_data = list(sup_reader)\n        cabot_data = list(cabot_reader)\n\
+          \    except Exception as e:\n        return {\"error\": f\"文件读取失败，请确保上传的是CSV格式:\
+          \ {str(e)}\"}\n\n    findings = []\n    \n    # 1. 预处理与建立索引\n    sup_dict\
+          \ = {}\n    net_supplier = defaultdict(float)\n    \n    for row in supplier_data:\n\
+          \        sup_code = row.get('Supplier Code', '').strip()\n        inv_no\
+          \ = row.get('Supplier Invoice No.', '')\n        norm_inv = normalize_invoice_number(inv_no)\n\
+          \        try:\n            gross_amt = float(row.get('Invoice Gross Amount',\
+          \ 0))\n        except ValueError:\n            gross_amt = 0.0\n       \
+          \     \n        key = f\"{sup_code}_{norm_inv}\"\n        row['norm_invoice']\
+          \ = norm_inv\n        row['parsed_gross'] = gross_amt\n        sup_dict[key]\
+          \ = row\n        net_supplier[sup_code] += gross_amt\n\n    cabot_dict =\
+          \ {}\n    net_cabot = defaultdict(float)\n    \n    for row in cabot_data:\n\
+          \        sup_code = row.get('supplier_code', '').strip()\n        inv_no\
+          \ = row.get('invoice_no', '')\n        norm_inv = normalize_invoice_number(inv_no)\n\
+          \        try:\n            cab_amt = float(row.get('cabot_amount', 0))\n\
+          \        except ValueError:\n            cab_amt = 0.0\n            \n \
+          \       key = f\"{sup_code}_{norm_inv}\"\n        row['norm_invoice'] =\
+          \ norm_inv\n        row['parsed_cabot_amt'] = cab_amt\n        cabot_dict[key]\
+          \ = row\n        net_cabot[sup_code] += cab_amt\n\n    # =================\
+          \ 宏观比对 =================\n    all_suppliers = set(net_supplier.keys()).union(set(net_cabot.keys()))\n\
+          \    for sup_code in all_suppliers:\n        if not sup_code: continue\n\
+          \        sup_total = round(net_supplier.get(sup_code, 0.0), 2)\n       \
+          \ cab_total = round(net_cabot.get(sup_code, 0.0), 2)\n        \n       \
+          \ if sup_total != cab_total:\n            findings.append({\n          \
+          \      'check_name': 'Net Position Reconciliation', 'check_result': 'Net\
+          \ payable mismatch',\n                'supplier_id': sup_code, 'invoice_id':\
+          \ 'ALL', 'payment_reference': '', 'currency': 'Mixed',\n               \
+          \ 'impacted_value': abs(sup_total - cab_total), 'impacted_document': 'Supplier\
+          \ Statement', \n                'issue_severity': 'Financial', 'comment':\
+          \ 'Aggregate supplier balance vs Cabot mismatch'\n            })\n\n   \
+          \ # ================= 微观比对 =================\n    all_keys = set(sup_dict.keys()).union(set(cabot_dict.keys()))\n\
+          \    \n    for key in all_keys:\n        if not key or key == \"_UNKNOWN\"\
+          : continue\n        \n        s_row = sup_dict.get(key, {})\n        c_row\
+          \ = cabot_dict.get(key, {})\n        \n        sup_code = key.split('_')[0]\n\
+          \        inv_no = s_row.get('Supplier Invoice No.') if s_row else c_row.get('invoice_no')\n\
+          \        currency = s_row.get('Invoice Currency', 'Unknown') if s_row else\
+          \ 'Unknown'\n        pay_ref = s_row.get('payment_reference', '') if s_row\
+          \ else ''\n        sup_comment = s_row.get('Supplier Comments', '') if s_row\
+          \ else ''\n        \n        sup_amt = s_row.get('parsed_gross')\n     \
+          \   cab_amt = c_row.get('parsed_cabot_amt')\n        \n        # 规则 1\n\
+          \        if cab_amt is None:\n            findings.append({\n          \
+          \      'check_name': 'Supplier vs Cabot Invoice Presence', 'check_result':\
+          \ 'Unsubmitted Invoice',\n                'supplier_id': sup_code, 'invoice_id':\
+          \ inv_no, 'payment_reference': pay_ref, 'currency': currency,\n        \
+          \        'impacted_value': sup_amt, 'impacted_document': 'Invoice', 'issue_severity':\
+          \ 'Control', 'comment': sup_comment\n            })\n            continue\
+          \ \n            \n        # 规则 2\n        if sup_amt is None:\n        \
+          \    findings.append({\n                'check_name': 'Cabot vs Supplier\
+          \ Invoice Presence', 'check_result': 'Unsupported Invoice',\n          \
+          \      'supplier_id': sup_code, 'invoice_id': inv_no, 'payment_reference':\
+          \ pay_ref, 'currency': currency,\n                'impacted_value': cab_amt,\
+          \ 'impacted_document': 'Invoice', 'issue_severity': 'Control', 'comment':\
+          \ sup_comment\n            })\n            continue\n\n        # 规则 3\n\
+          \        if round(sup_amt, 2) != round(cab_amt, 2):\n            findings.append({\n\
+          \                'check_name': 'Amount Consistency', 'check_result': 'Invoice\
+          \ value difference',\n                'supplier_id': sup_code, 'invoice_id':\
+          \ inv_no, 'payment_reference': pay_ref, 'currency': currency,\n        \
+          \        'impacted_value': abs(sup_amt - cab_amt), 'impacted_document':\
+          \ 'Invoice', 'issue_severity': 'Financial', 'comment': sup_comment\n   \
+          \         })\n\n    # 分组构建宏观数组\n    grouped_macro = {}\n    for f in findings:\n\
+          \        grouped_macro.setdefault(f['supplier_id'], []).append(f)\n    \n\
+          \    macro_findings = [{\"supplier_id\": k, \"findings_summary\": str(v)}\
+          \ for k, v in grouped_macro.items()]\n\n    return {\n        \"micro_findings\"\
+          : findings,\n        \"macro_findings\": macro_findings\n    }"
+        code_language: python3
+        outputs:
+          macro_findings:
+            children: null
+            type: array[object]
+          micro_findings:
+            children: null
+            type: array[object]
+        selected: false
+        title: Code
+        type: code
+        variables:
+        - value_selector:
+          - '1786504576804'
+          - supplier_file
+          - url
+          value_type: file
+          variable: supplier_url
+        - value_selector:
+          - '1786504576804'
+          - cabot_file
+          - url
+          value_type: file
+          variable: cabot_url
+      height: 51
+      id: '1786504706860'
+      position:
+        x: 137.53178582433696
+        y: 266.43687634156277
+      positionAbsolute:
+        x: 137.53178582433696
+        y: 266.43687634156277
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        error_handle_mode: terminated
+        flatten_output: true
+        height: 175
+        is_parallel: false
+        iterator_input_type: array[object]
+        iterator_selector:
+        - '1786504706860'
+        - macro_findings
+        output_selector:
+        - '1786505620608'
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1786505551548start
+        title: Iteration
+        type: iteration
+        width: 385
+      height: 175
+      id: '1786505551548'
+      position:
+        x: 499.73862648016654
+        y: -57.5631236584373
+      positionAbsolute:
+        x: 499.73862648016654
+        y: -57.5631236584373
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 385
+      zIndex: 0
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1786505551548start
+      parentId: '1786505551548'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 523.7386264801665
+        y: 10.436876341562701
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1001
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1786505551548'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: c6569a3c-7172-4d0a-9658-3d1267eb3a23
+          role: system
+          text: 你是一个资深的财务与采购审计专家。你的任务是基于对账异常数据，进行严谨、专业、简短的宏观风险评估，判断供应商是否存在系统性管理风险。
+        - id: 8bc91866-0ed7-4907-969f-1d11da2004da
+          role: user
+          text: '以下是当前供应商本期对账的全部异常汇总数据（包含供应商ID和异常明细的JSON格式）：
+
+            【供应商数据】：{{#1786505551548.item#}}
+
+
+            请分析上述数据中该供应商是否存在系统性管理混乱或潜在恶意行为。
+
+            输出要求：
+
+            1.请直接给出一个综合风险评级（低/中/高）。
+
+            2.提供一句话的审计建议。
+
+            3.语言必须简练，直接输出结果，不要任何客套话和多余的解释。
+
+
+            '
+        selected: false
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1786505620608'
+      parentId: '1786505551548'
+      position:
+        x: 128
+        y: 68
+      positionAbsolute:
+        x: 627.7386264801665
+        y: 10.436876341562701
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 1001
+    - data:
+        error_handle_mode: terminated
+        flatten_output: true
+        height: 175
+        is_parallel: false
+        iterator_input_type: array[object]
+        iterator_selector:
+        - '1786504706860'
+        - micro_findings
+        output_selector:
+        - '1786506556064'
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1786506551637start
+        title: Iteration 2
+        type: iteration
+        width: 385
+      height: 175
+      id: '1786506551637'
+      position:
+        x: 499.73862648016654
+        y: 482.43687634156277
+      positionAbsolute:
+        x: 499.73862648016654
+        y: 482.43687634156277
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 385
+      zIndex: 0
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1786506551637start
+      parentId: '1786506551637'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 523.7386264801665
+        y: 550.4368763415628
+      selectable: false
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1001
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1786506551637'
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: deepseek-v4-flash
+          provider: langgenius/deepseek/deepseek
+        prompt_template:
+        - id: 1dcf71cc-3ee8-41db-93c7-39da94f08497
+          role: system
+          text: 你是一个专业的采购与财务审计AI助手。你的任务是针对单条账单对账异常，深度剖析其背后的根本业务原因，并给出精准的处理建议。要求输出严谨、专业、极简。
+        - id: 736800be-2b64-4979-8981-8029fc34020f
+          role: user
+          text: '以下是单条财务账单比对异常的详细数据（JSON格式）：
+
+            【异常明细】：{{#1786506551637.item#}}
+
+            请重点提取上述数据中的 check_name（触发规则）、impacted_value（差异金额）以及 comment（供应商备注）这三个关键信息，完成以下分析：
+
+            输出要求：
+
+            1.请将异常原因进行归类（例如：时间差、挂错账、抵扣未使用、业务争议、汇率尾差等）。
+
+            2.给出一句话的具体跟进建议。
+
+            3.如果发现 comment 为空、"nan" 或无意义，请直接输出： ”【原因】：无备注 | 【建议】：需人工介入索要对账说明”。
+
+            4.必须严格按照以下单行格式输出，不要任何客套话，不要重复原始数据： 【原因】：[你的归类] | 【建议】：[你的建议]'
+        selected: false
+        structured_output_enabled: false
+        title: LLM 2
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: '1786506556064'
+      parentId: '1786506551637'
+      position:
+        x: 128
+        y: 68
+      positionAbsolute:
+        x: 627.7386264801665
+        y: 550.4368763415628
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 1001
+    - data:
+        code: "import uuid\nimport csv\nimport io\n\n# 强制将 4 个输入变量作为参数传入\ndef main(micro_findings:\
+          \ list, macro_findings: list, ai_macro_insights: list, ai_micro_insights:\
+          \ list):\n    \n    # 确保传入的值不是 None\n    micro_findings = micro_findings\
+          \ or []\n    macro_findings = macro_findings or []\n    ai_macro_insights\
+          \ = ai_macro_insights or []\n    ai_micro_insights = ai_micro_insights or\
+          \ []\n    \n    # 2. 构建宏观画像的映射字典\n    macro_dict = {}\n    for i, macro_data\
+          \ in enumerate(macro_findings):\n        if i < len(ai_macro_insights):\n\
+          \            insight = str(ai_macro_insights[i]).replace('\\n', ' ').strip()\n\
+          \        else:\n            insight = \"暂无宏观分析\"\n        \n        sup_id\
+          \ = macro_data.get('supplier_id', 'UNKNOWN')\n        macro_dict[sup_id]\
+          \ = insight\n\n    # 3. 准备 CSV 写入器 (使用 io.StringIO 在内存中生成字符串)\n    output\
+          \ = io.StringIO()\n    writer = csv.writer(output)\n    \n    # 如果没发现任何异常，返回一个简单的\
+          \ CSV 提示\n    if not micro_findings:\n        writer.writerow([\"状态\", \"\
+          详情\"])\n        writer.writerow([\"✅ 成功\", \"未发现任何账单差异，账目完全一致！\"])\n   \
+          \     return {\"final_report\": output.getvalue()}\n\n    # 写入表头 (去掉了 emoji，防止部分旧版\
+          \ Excel 识别异常，你也可以加上)\n    headers = [\"发现ID\", \"供应商ID\", \"发票号\", \"差异金额\"\
+          , \"触发规则\", \"AI 单条诊断建议(微观)\", \"供应商系统风险评估(宏观)\"]\n    writer.writerow(headers)\n\
+          \n    # 4. 逐行拼装微观明细并写入 CSV\n    for i, finding in enumerate(micro_findings):\n\
+          \        finding_id = f\"FND-{str(uuid.uuid4())[:6].upper()}\"\n       \
+          \ sup_id = str(finding.get('supplier_id', 'N/A'))\n        inv_id = str(finding.get('invoice_id',\
+          \ 'N/A'))\n        diff_val = str(finding.get('impacted_value', '0'))\n\
+          \        rule = str(finding.get('check_name', 'N/A'))\n        \n      \
+          \  # 提取微观 AI 诊断\n        if i < len(ai_micro_insights):\n            micro_insight\
+          \ = str(ai_micro_insights[i]).replace('\\n', ' ').strip()\n        else:\n\
+          \            micro_insight = \"暂无诊断\"\n            \n        # 提取宏观 AI 评估\n\
+          \        macro_insight = macro_dict.get(sup_id, \"N/A\")\n        \n   \
+          \     # 将这一行数据写入 CSV\n        writer.writerow([finding_id, sup_id, inv_id,\
+          \ diff_val, rule, micro_insight, macro_insight])\n        \n    # 获取最终生成的\
+          \ CSV 纯文本字符串\n    final_report = output.getvalue()\n    \n    return {\n\
+          \        \"final_report\": final_report\n    }"
+        code_language: python3
+        outputs:
+          final_report:
+            children: null
+            type: string
+        selected: true
+        title: Code 2
+        type: code
+        variables:
+        - value_selector:
+          - '1786504706860'
+          - micro_findings
+          value_type: array[object]
+          variable: micro_findings
+        - value_selector:
+          - '1786504706860'
+          - macro_findings
+          value_type: array[object]
+          variable: macro_findings
+        - value_selector:
+          - '1786505551548'
+          - output
+          value_type: array[string]
+          variable: ai_macro_insights
+        - value_selector:
+          - '1786506551637'
+          - output
+          value_type: array[string]
+          variable: ai_micro_insights
+      height: 51
+      id: '1786513024539'
+      position:
+        x: 1061.5519923102079
+        y: 266.43687634156277
+      positionAbsolute:
+        x: 1061.5519923102079
+        y: 266.43687634156277
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    - data:
+        outputs:
+        - value_selector:
+          - '1786513024539'
+          - final_report
+          value_type: string
+          variable: final_report
+        selected: false
+        title: Output
+        type: end
+      height: 87
+      id: '1786513345480'
+      position:
+        x: 1362.5519923102079
+        y: 266.43687634156277
+      positionAbsolute:
+        x: 1362.5519923102079
+        y: 266.43687634156277
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 241
+      zIndex: 0
+    viewport:
+      x: 164.28237243523154
+      y: 152.5734835113036
+      zoom: 0.3789291416275998
+  rag_pipeline_variables: []
