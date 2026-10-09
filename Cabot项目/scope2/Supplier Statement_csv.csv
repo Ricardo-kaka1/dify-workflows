@@ -1,0 +1,26 @@
+﻿Supplier Code,Supplier Name,Supplier Invoice No.,Invoice Date,Invoice Currency,Invoice Gross Amount,Paid Amount,Outstanding Amount,Invoice Status,Payment Date per Supplier,Credit / Debit Indicator,Related Credit Memo No.,Supplier Comments
+V100,Tech Corp,INV-001,2026/5/1,CNY,1000,1000,0,Paid,2026/5/10,Debit,,
+V100,Tech Corp,INV-002,2026/5/2,CNY,2500,2500,0,Paid,2026/5/12,Debit,,
+V100,Tech Corp,INV-003,2026/5/3,CNY,1800,1800,0,Paid,2026/5/15,Debit,,
+V100,Tech Corp,INV-004,2026/5/5,CNY,3000,3000,0,Paid,2026/5/18,Debit,,
+V100,Tech Corp,INV-005,2026/5/6,CNY,500,500,0,Paid,2026/5/20,Debit,,
+V200,Global Supply,INV-006,2026/5/1,USD,1200,1200,0,Paid,2026/5/11,Debit,,
+V200,Global Supply,INV-007,2026/5/4,USD,3400,3400,0,Paid,2026/5/14,Debit,,
+V200,Global Supply,INV-008,2026/5/7,USD,2100,2100,0,Paid,2026/5/17,Debit,,
+V300,Office Depot,INV-009,2026/5/2,CNY,800,800,0,Paid,2026/5/10,Debit,,
+V300,Office Depot,INV-010,2026/5/5,CNY,950,950,0,Paid,2026/5/15,Debit,,
+V100,Tech Corp,INV-011,2026/5/10,CNY,4200,0,4200,Open,,Debit,,Pending payment
+V200,Global Supply,INV-012,2026/5/11,USD,1500,0,1500,Open,,Debit,,Did not receive funds
+V300,Office Depot,INV-013,2026/5/12,CNY,600,0,600,Open,,Debit,,No payment received
+V100,Tech Corp,INV-017,2026/5/15,CNY,5500,0,5500,Open,,Debit,,
+V200,Global Supply,INV-018,2026/5/16,USD,2800,0,2800,Open,,Debit,,
+V300,Office Depot,INV-019,2026/5/17,CNY,900,0,900,Open,,Debit,,
+V100,Tech Corp,INV-020,2026/5/20,CNY,1100,0,1100,Open,,Debit,,Payment pending
+V200,Global Supply,INV-021,2026/5/21,USD,3200,0,3200,Open,,Debit,,Missing payment
+V300,Office Depot,INV-022,2026/5/22,CNY,1500,0,1500,Open,,Debit,,
+V100,Tech Corp,INV-023,2026/5/25,CNY,2000,1500,500,Partial,2026/5/28,Debit,,Short paid
+V200,Global Supply,INV-024,2026/5/26,USD,4000,3800,200,Partial,2026/5/29,Debit,,Bank fee deduction
+V300,Office Depot,CM-001,2026/5/27,CNY,-500,0,-500,Open,,Credit,,Rebate not applied
+V100,Tech Corp,INV-026,2026/5/28,CNY,700,700,0,Paid,2026/5/30,Debit,,
+V200,Global Supply,INV-027,2026/5/29,USD,1300,1300,0,Paid,2026/5/31,Debit,,
+V300,Office Depot,INV-028,2026/5/30,CNY,850,850,0,Paid,2026/6/1,Debit,,

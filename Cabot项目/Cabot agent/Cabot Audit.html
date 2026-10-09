@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEP - 智能审计对账 Agent</title>
+    <style>
+        /* 全局与背景美化 */
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%); /* 渐变高级灰背景 */
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px; 
+            box-sizing: border-box;
+        }
+
+        /* 主体聊天容器卡片化 */
+        .chat-container { 
+            width: 100%; 
+            max-width: 850px; 
+            background: rgba(255, 255, 255, 0.95); 
+            border-radius: 16px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08), 0 1px 8px rgba(0,0,0,0.04); /* 柔和多层阴影 */
+            display: flex; 
+            flex-direction: column; 
+            height: 90vh; 
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+
+        /* 头部加入 Logo 和品牌色 */
+        .chat-header { 
+            padding: 16px 24px; 
+            border-bottom: 1px solid #edf2f7; 
+            display: flex; 
+            align-items: center; 
+            background: #ffffff; 
+        }
+        .chat-header img.logo {
+            height: 36px; /* 调整 Logo 高度 */
+            margin-right: 15px;
+            object-fit: contain;
+        }
+        .chat-header .title {
+            font-weight: 600; 
+            font-size: 1.1em; 
+            color: #2d3748; 
+            letter-spacing: 0.5px;
+        }
+
+        /* 对话区美化 */
+        .chat-history { 
+            flex: 1; 
+            padding: 24px; 
+            overflow-y: auto; 
+            background-color: #f8fafc; 
+            scroll-behavior: smooth;
+        }
+        .message { 
+            margin-bottom: 20px; 
+            max-width: 80%; 
+            line-height: 1.6; 
+            font-size: 0.95em;
+            animation: fadeIn 0.4s ease-out forwards; /* 进场动画 */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message.user { 
+            margin-left: auto; 
+            background: #00609C; /* 提取的 GEP 品牌蓝 */
+            color: white; 
+            padding: 12px 18px; 
+            border-radius: 16px 16px 0 16px; 
+            box-shadow: 0 4px 10px rgba(0, 96, 156, 0.2);
+        }
+        .message.ai { 
+            margin-right: auto; 
+            background: white; 
+            border: 1px solid #e2e8f0; 
+            padding: 14px 18px; 
+            border-radius: 16px 16px 16px 0; 
+            color: #1a202c; 
+            white-space: pre-wrap; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+
+        /* 底部输入区美化 */
+        .input-area { 
+            padding: 20px 24px; 
+            background: white; 
+            border-top: 1px solid #edf2f7; 
+        }
+        .file-inputs-container {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .file-group { 
+            flex: 1;
+            display: flex; 
+            flex-direction: column; 
+            gap: 8px; 
+        }
+        .file-group label { 
+            font-size: 0.85em; 
+            font-weight: 600; 
+            color: #4a5568; 
+        }
+        /* 美化原生上传按钮 */
+        input[type="file"] {
+            font-size: 0.85em;
+            color: #718096;
+            padding: 8px;
+            border: 1px dashed #cbd5e0;
+            border-radius: 6px;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        input[type="file"]:hover {
+            border-color: #00609C;
+            background: #ebf4ff;
+        }
+
+        .btn-submit { 
+            width: 100%; 
+            padding: 14px; 
+            background: #00609C; /* GEP 品牌蓝 */
+            color: white; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 1em; 
+            font-weight: 600;
+            cursor: pointer; 
+            transition: all 0.3s ease; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-submit:hover:not(:disabled) { 
+            background: #004d7a; 
+            box-shadow: 0 4px 12px rgba(0, 77, 122, 0.3);
+        }
+        .btn-submit:disabled { 
+            background: #a0aec0; 
+            cursor: not-allowed; 
+        }
+
+        /* 加载动画特效 */
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <!-- 头部：加入了 image_12__1_.png -->
+    <div class="chat-header">
+        <img src="image_12__1_.png" alt="GEP Logo" class="logo">
+        <div class="title">智能对账与审计诊断 Agent</div>
+    </div>
+    
+    <div class="chat-history" id="chatHistory">
+        <div class="message ai">您好！我是您的智能数据处理助手。👋<br><br>请在下方分别上传 <b>Cabot</b> 和 <b>Supplier</b> 的相关账单文件（仅支持 CSV 格式），我将为您进行深度比对并生成自动化审计报告。</div>
+    </div>
+
+    <div class="input-area">
+        <div class="file-inputs-container">
+            <div class="file-group">
+                <label>📄 导入 Cabot 数据源</label>
+                <input type="file" id="cabotFile" accept=".txt,.pdf,.csv,.xlsx,.docx">
+            </div>
+            <div class="file-group">
+                <label>📄 导入 Supplier 数据源</label>
+                <input type="file" id="supplierFile" accept=".txt,.pdf,.csv,.xlsx,.docx">
+            </div>
+        </div>
+        <button id="submitBtn" class="btn-submit" onclick="handleProcess()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            开始智能分析并生成报告
+        </button>
+    </div>
+</div>
+
+<script>
+    // ⚠️ 别忘了替换你的 API Key 
+    const DIFY_API_KEY = 'app-TwOaqQxbWGaug5fPikEIdxdo'; 
+    const API_BASE_URL = 'https://api.dify.ai/v1'; 
+
+    const chatHistory = document.getElementById('chatHistory');
+    const submitBtn = document.getElementById('submitBtn');
+
+    function addMessage(content, sender) {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${sender}`;
+        msgDiv.innerHTML = content; // 改用 innerHTML 支持简单的加粗等标签
+        chatHistory.appendChild(msgDiv);
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+        return msgDiv;
+    }
+
+    async function uploadFileToDify(file) {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('user', 'web-user');
+
+        const response = await fetch(`${API_BASE_URL}/files/upload`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${DIFY_API_KEY}` },
+            body: formData
+        });
+
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(`文件上传失败: ${err.message || '未知错误'}`);
+        }
+        const data = await response.json();
+        return data.id;
+    }
+
+    async function runWorkflow(cabotFileId, supplierFileId) {
+        const payload = {
+            inputs: {
+                "cabot_file": { "transfer_method": "local_file", "upload_file_id": cabotFileId, "type": "document" },
+                "supplier_file": { "transfer_method": "local_file", "upload_file_id": supplierFileId, "type": "document" }
+            },
+            response_mode: "blocking",
+            user: "web-user"
+        };
+
+        const response = await fetch(`${API_BASE_URL}/workflows/run`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${DIFY_API_KEY}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const err = await response.json();
+            throw new Error(`工作流执行失败: ${err.message || '未知错误'}`);
+        }
+        
+        const data = await response.json();
+        return data.data.outputs.final_report; 
+    }
+
+    function downloadAsExcel(content, filename = '对账与审计诊断报告.csv') {
+        const bom = new Uint8Array([0xEF, 0xBB, 0xBF]);
+        const blob = new Blob([bom, content], { type: 'text/csv;charset=utf-8;' });
+        
+        const link = document.createElement("a");
+        const url = URL.createObjectURL(blob);
+        link.setAttribute("href", url);
+        link.setAttribute("download", filename);
+        link.style.visibility = 'hidden';
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    async function handleProcess() {
+        const cabotInput = document.getElementById('cabotFile');
+        const supplierInput = document.getElementById('supplierFile');
+
+        if (!cabotInput.files[0] || !supplierInput.files[0]) {
+            alert("请必须同时上传 Cabot 文件和 Supplier 文件！");
+            return;
+        }
+
+        const cabotFile = cabotInput.files[0];
+        const supplierFile = supplierInput.files[0];
+
+        // 界面更新状态，采用加载动画
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'AI 正在深度分析中，请稍候...';
+        
+        addMessage(`<b>[文件已接收]</b><br>1. ${cabotFile.name}<br>2. ${supplierFile.name}`, 'user');
+        
+        // 带有 CSS 动画的 loading 提示
+        const loadingMsg = addMessage('<span class="loading-dots">正在读取文件并进行规则匹配</span>', 'ai');
+
+        try {
+            const cabotFileId = await uploadFileToDify(cabotFile);
+            const supplierFileId = await uploadFileToDify(supplierFile);
+
+            loadingMsg.innerHTML = '<span class="loading-dots">正在生成微观明细与宏观风险评估</span>';
+            const finalReport = await runWorkflow(cabotFileId, supplierFileId);
+
+            chatHistory.removeChild(loadingMsg);
+            addMessage("✅ <b>分析完成！</b><br>我已生成最终的审计与对账报告，请点击下方按钮将其导出为 Excel (CSV) 格式查看。", 'ai');
+
+            const downloadBtn = document.createElement('button');
+            downloadBtn.innerHTML = '📊 下载 Excel 诊断报告';
+            downloadBtn.className = 'btn-submit'; 
+            downloadBtn.style.marginTop = '15px';
+            downloadBtn.style.width = '240px';
+            downloadBtn.style.backgroundColor = '#2b6cb0'; // 稍浅的蓝色
+            
+            downloadBtn.onclick = () => downloadAsExcel(finalReport, `审计报告_${new Date().getTime()}.csv`);
+            
+            const btnContainer = document.createElement('div');
+            btnContainer.style.textAlign = 'left';
+            btnContainer.appendChild(downloadBtn);
+            chatHistory.appendChild(btnContainer);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+        } catch (error) {
+            console.error(error);
+            if (chatHistory.contains(loadingMsg)) {
+                chatHistory.removeChild(loadingMsg);
+            }
+            addMessage(`❌ <b>分析中断</b><br>发生错误：${error.message}`, 'ai');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg> 开始智能分析并生成报告';
+        }
+    }
+</script>
+</body>
+</html>
